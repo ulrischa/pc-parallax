@@ -1,0 +1,111 @@
+/*
+  pc-parallax
+
+  A reusable CSS-only parallax component using native CSS Scroll-driven Animations.
+
+  Public classes:
+  - .pc-parallax
+  - .pc-parallax__frame
+  - .pc-parallax__layer
+
+  Public custom properties:
+  - --pc-height
+  - --pc-background
+  - --pc-travel
+  - --pc-z
+
+  Notes:
+  - No JavaScript is required.
+  - @property gives functional values typed fallbacks.
+  - @layer groups the component in the cascade.
+  - @scope limits selectors to one .pc-parallax instance.
+*/
+
+@property --pc-height {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 85vh;
+}
+
+@property --pc-travel {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 20vh;
+}
+
+@property --pc-z {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer parallax-component {
+  @scope (.pc-parallax) {
+    :scope {
+      --pc-background: transparent;
+
+      display: block;
+      block-size: var(--pc-height);
+      view-timeline-name: --pc-parallax-progress;
+      view-timeline-axis: block;
+      timeline-scope: --pc-parallax-progress;
+    }
+
+    :scope > .pc-parallax__frame {
+      position: relative;
+      block-size: 100%;
+      overflow: clip;
+      isolation: isolate;
+      background: var(--pc-background);
+    }
+
+    .pc-parallax__layer {
+      --pc-travel: 20vh;
+      --pc-z: 0;
+      --pc-from: 0px;
+      --pc-to: calc(0px - var(--pc-travel));
+
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 0;
+      display: block;
+      block-size: calc(100% + var(--pc-travel));
+      z-index: var(--pc-z);
+      transform: translateY(var(--pc-from));
+      will-change: transform;
+    }
+
+    .pc-parallax__layer[data-direction="down"] {
+      --pc-from: calc(0px - var(--pc-travel));
+      --pc-to: 0px;
+    }
+
+    @supports (animation-timeline: view()) {
+      .pc-parallax__layer {
+        animation-name: pc-parallax-layer-move;
+        animation-duration: 1ms;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --pc-parallax-progress;
+        animation-range: entry 0% exit 100%;
+      }
+
+      @keyframes pc-parallax-layer-move {
+        from {
+          transform: translateY(var(--pc-from));
+        }
+
+        to {
+          transform: translateY(var(--pc-to));
+        }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pc-parallax__layer {
+        animation: none;
+        transform: translateY(0%);
+      }
+    }
+  }
+}
