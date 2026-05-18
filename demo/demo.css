@@ -35,13 +35,10 @@
 
   .pc-demo-parallax {
     margin-block: 6vh;
-    --pc-height: 90vh;
-    --pc-background: #102033;
-  }
-
-  .pc-demo-parallax .pc-parallax__frame {
     border-radius: 2rem;
     box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.35);
+    --pc-height: 90vh;
+    --pc-background: #102033;
   }
 
   .pc-demo-layer-fill {
