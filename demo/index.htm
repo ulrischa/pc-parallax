@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pc-parallax Demo</title>
+
+  <link rel="stylesheet" href="../src/pc-parallax.css">
+  <link rel="stylesheet" href="./demo.css">
+</head>
+<body>
+  <main>
+    <section class="pc-demo-content">
+      <h1>pc-parallax</h1>
+      <p>
+        A reusable CSS-only parallax component using native CSS Scroll-driven Animations.
+      </p>
+      <p>
+        The reusable component CSS is scoped with <code>@layer</code>, <code>@scope</code>,
+        prefixed classes, and typed custom properties.
+      </p>
+    </section>
+
+    <section class="pc-parallax pc-demo-parallax" aria-label="Layered parallax demo">
+      <div class="pc-parallax__frame">
+        <div
+          class="pc-parallax__layer"
+          style="--pc-travel: 10vh; --pc-z: 1;"
+          aria-hidden="true"
+        >
+          <div class="pc-demo-layer-fill pc-demo-sky"></div>
+        </div>
+
+        <div
+          class="pc-parallax__layer"
+          style="--pc-travel: 26vh; --pc-z: 3;"
+          aria-hidden="true"
+        >
+          <div class="pc-demo-layer-fill pc-demo-mountains"></div>
+        </div>
+
+        <div
+          class="pc-parallax__layer"
+          data-direction="down"
+          style="--pc-travel: 34vh; --pc-z: 2;"
+          aria-hidden="true"
+        >
+          <div class="pc-demo-sun"></div>
+        </div>
+
+        <div
+          class="pc-parallax__layer"
+          style="--pc-travel: 34vh; --pc-z: 4;"
+          aria-hidden="true"
+        >
+          <div class="pc-demo-layer-fill pc-demo-water"></div>
+        </div>
+
+        <div
+          class="pc-parallax__layer"
+          style="--pc-travel: 12vh; --pc-z: 5;"
+        >
+          <div class="pc-demo-text">
+            <h2>Five layers</h2>
+            <p>
+              CSS-only, scoped with a prefix, <code>@layer</code>,
+              <code>@scope</code>, and local variables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pc-demo-content">
+      <h2>Reusable by design</h2>
+      <p>
+        For production use, keep the component CSS and replace the demo styles with your project styles.
+      </p>
+      <p>
+        Spacing, shadows, border radius, images, colors, and text styles are intentionally outside the component core.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
