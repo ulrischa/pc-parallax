@@ -1,13 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img" aria-labelledby="title desc">
   <title id="title">pc-parallax logo</title>
-  <desc id="desc">A minimal logo showing layered mountains, a sun, and the pc-parallax wordmark.</desc>
-  <rect width="900" height="420" rx="32" fill="#f7f3ea"/>
-  <g transform="translate(120 74)">
-    <circle cx="502" cy="74" r="52" fill="#f6c65b"/>
-    <path d="M0 210 154 82l82 70 154-126 238 184Z" fill="#14344c"/>
-    <path d="M146 210 330 92l276 118Z" fill="#2f7fa5"/>
-    <path d="M0 232c104-32 203-32 306 0s205 32 306 0v58c-104 32-203 32-306 0S101 258 0 290Z" fill="#62bee4"/>
-    <path d="M0 274c104-32 203-32 306 0s205 32 306 0v50H0Z" fill="#0b4678"/>
+  <desc id="desc">A minimal logo showing layered mountains, a sun, water lines, and a clearly separated pc-parallax wordmark.</desc>
+
+  <rect width="900" height="500" rx="36" fill="#f7f3ea"/>
+
+  <g transform="translate(150 56)">
+    <circle cx="492" cy="68" r="46" fill="#f4c45a"/>
+
+    <path d="M0 204 138 88l72 62 142-118 228 172Z" fill="#14344c"/>
+    <path d="M134 204 314 94l286 110Z" fill="#2f7fa5"/>
+
+    <path d="M0 226c102-30 198-30 300 0s198 30 300 0v42c-102 30-198 30-300 0s-198-30-300 0Z" fill="#62bee4"/>
+    <path d="M0 266c102-28 198-28 300 0s198 28 300 0v44H0Z" fill="#0b4678"/>
   </g>
-  <text x="450" y="365" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="72" font-weight="700" letter-spacing="-3" fill="#1d2433">pc-parallax</text>
+
+  <line x1="220" y1="392" x2="680" y2="392" stroke="#d9d1c2" stroke-width="2"/>
+
+  <text
+    x="450"
+    y="444"
+    text-anchor="middle"
+    font-family="Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="68"
+    font-weight="750"
+    letter-spacing="-2.4"
+    fill="#18202f"
+  >pc-parallax</text>
 </svg>
