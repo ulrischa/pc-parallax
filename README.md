@@ -48,22 +48,20 @@ Create a parallax section:
 
 ```html
 <section class="pc-parallax" style="--pc-height: 90vh;">
-  <div class="pc-parallax__frame">
-    <div
-      class="pc-parallax__layer"
-      style="--pc-travel: 20vh; --pc-z: 1;"
-      aria-hidden="true"
-    >
-      <!-- Decorative background layer -->
-    </div>
+  <div
+    class="pc-parallax__layer"
+    style="--pc-travel: 20vh; --pc-z: 1;"
+    aria-hidden="true"
+  >
+    <!-- Decorative background layer -->
+  </div>
 
-    <div
-      class="pc-parallax__layer"
-      data-direction="down"
-      style="--pc-travel: 30vh; --pc-z: 2;"
-    >
-      <!-- Foreground content -->
-    </div>
+  <div
+    class="pc-parallax__layer"
+    data-direction="down"
+    style="--pc-travel: 30vh; --pc-z: 2;"
+  >
+    <!-- Foreground content -->
   </div>
 </section>
 ```
@@ -74,13 +72,13 @@ A parallax section needs this structure:
 
 ```html
 <section class="pc-parallax">
-  <div class="pc-parallax__frame">
-    <div class="pc-parallax__layer">
-      ...
-    </div>
+  <div class="pc-parallax__layer">
+    ...
   </div>
 </section>
 ```
+
+The `.pc-parallax` element is the visible stage, clipping container, stacking context, and shared scroll timeline. Layers must be direct children of `.pc-parallax`.
 
 The component uses normal HTML. You can put images, SVG, text, cards, or other HTML inside a layer.
 
@@ -225,10 +223,10 @@ The component includes a reduced-motion fallback:
 
 The component CSS does not define optical styles such as shadows, border radius, colors, or typography.
 
-You can style the frame from project CSS:
+You can style the parallax stage from project CSS:
 
 ```css
-.my-parallax .pc-parallax__frame {
+.my-parallax {
   border-radius: 2rem;
   box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.35);
 }
