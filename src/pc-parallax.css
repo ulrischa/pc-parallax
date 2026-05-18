@@ -5,7 +5,6 @@
 
   Public classes:
   - .pc-parallax
-  - .pc-parallax__frame
   - .pc-parallax__layer
 
   Public custom properties:
@@ -44,22 +43,18 @@
     :scope {
       --pc-background: transparent;
 
+      position: relative;
       display: block;
       block-size: var(--pc-height);
+      overflow: clip;
+      isolation: isolate;
+      background: var(--pc-background);
       view-timeline-name: --pc-parallax-progress;
       view-timeline-axis: block;
       timeline-scope: --pc-parallax-progress;
     }
 
-    :scope > .pc-parallax__frame {
-      position: relative;
-      block-size: 100%;
-      overflow: clip;
-      isolation: isolate;
-      background: var(--pc-background);
-    }
-
-    .pc-parallax__layer {
+    :scope > .pc-parallax__layer {
       --pc-travel: 20vh;
       --pc-z: 0;
       --pc-from: 0px;
@@ -75,13 +70,13 @@
       will-change: transform;
     }
 
-    .pc-parallax__layer[data-direction="down"] {
+    :scope > .pc-parallax__layer[data-direction="down"] {
       --pc-from: calc(0px - var(--pc-travel));
       --pc-to: 0px;
     }
 
     @supports (animation-timeline: view()) {
-      .pc-parallax__layer {
+      :scope > .pc-parallax__layer {
         animation-name: pc-parallax-layer-move;
         animation-duration: 1ms;
         animation-timing-function: linear;
@@ -102,7 +97,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pc-parallax__layer {
+      :scope > .pc-parallax__layer {
         animation: none;
         transform: translateY(0%);
       }
