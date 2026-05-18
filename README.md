@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/pc-parallax-logo.png" alt="pc-parallax logo" width="240">
+  <img src="assets/pc-parallax-logo.svg" alt="pc-parallax logo" width="320">
 </p>
 
 # pc-parallax
@@ -28,7 +28,7 @@ pc-parallax/
 ├─ README.md
 ├─ LICENSE
 ├─ assets/
-│  └─ pc-parallax-logo.png
+│  └─ pc-parallax-logo.svg
 ├─ src/
 │  └─ pc-parallax.css
 └─ demo/
