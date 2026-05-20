@@ -11,7 +11,12 @@
   - --pc-height
   - --pc-background
   - --pc-travel
+  - --pc-auto-travel-step
   - --pc-z
+
+  Public attributes:
+  - data-direction="down" on .pc-parallax__layer
+  - data-auto-travel on .pc-parallax
 
   Notes:
   - No JavaScript is required.
@@ -27,9 +32,15 @@
 }
 
 @property --pc-travel {
-  syntax: "<length-percentage>";
+  syntax: "<length>";
   inherits: false;
   initial-value: 20vh;
+}
+
+@property --pc-auto-travel-step {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 8vh;
 }
 
 @property --pc-z {
@@ -66,7 +77,7 @@
       display: block;
       block-size: calc(100% + var(--pc-travel));
       z-index: var(--pc-z);
-      transform: translateY(var(--pc-from));
+      transform: translateY(0);
       will-change: transform;
     }
 
@@ -75,8 +86,15 @@
       --pc-to: 0px;
     }
 
-    @supports (animation-timeline: view()) {
+    @supports (width: calc(1px * sibling-index())) {
+      :scope[data-auto-travel] > .pc-parallax__layer {
+        --pc-travel: calc(var(--pc-auto-travel-step) * sibling-index());
+      }
+    }
+
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
       :scope > .pc-parallax__layer {
+        transform: translateY(var(--pc-from));
         animation-name: pc-parallax-layer-move;
         animation-duration: 1ms;
         animation-timing-function: linear;
@@ -99,7 +117,7 @@
     @media (prefers-reduced-motion: reduce) {
       :scope > .pc-parallax__layer {
         animation: none;
-        transform: translateY(0%);
+        transform: translateY(0);
       }
     }
   }
