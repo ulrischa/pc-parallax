@@ -15,8 +15,10 @@ No JavaScript is required.
 - Multiple parallax layers
 - Shared section timeline
 - Per-layer travel distance
+- Optional automatic travel distance with `sibling-index()`
 - Per-layer direction
 - Per-layer stacking order
+- Neutral no-support fallback
 - Reduced-motion fallback
 - Scoped component CSS with `@layer` and `@scope`
 - Typed custom properties with `@property`
@@ -88,10 +90,12 @@ The component uses normal HTML. You can put images, SVG, text, cards, or other H
 
 The outer component.
 
-| Variable | Type | Default | Description |
+| Variable / attribute | Type | Default | Description |
 |---|---:|---:|---|
 | `--pc-height` | length or percentage | `85vh` | Visible height of the parallax section |
 | `--pc-background` | background value | `transparent` | Background behind all layers |
+| `--pc-auto-travel-step` | length | `8vh` | Travel distance multiplier for automatic travel mode |
+| `data-auto-travel` | attribute | absent | Enables automatic travel distances using `sibling-index()` when supported |
 
 Example:
 
@@ -110,7 +114,7 @@ A moving layer inside the section.
 
 | Variable / attribute | Type | Default | Description |
 |---|---:|---:|---|
-| `--pc-travel` | length or percentage | `20vh` | Total movement distance |
+| `--pc-travel` | length | `20vh` | Total movement distance |
 | `--pc-z` | integer | `0` | Layer stacking order |
 | `data-direction="down"` | attribute | absent | Reverses movement direction |
 
@@ -169,6 +173,30 @@ Downward movement:
 >
 ```
 
+`--pc-travel` accepts CSS lengths such as `px`, `rem`, `vh`, `dvh`, or `svh`. Percentages are intentionally not part of the registered syntax because percentage-based transforms are relative to the layer box, not the viewport.
+
+## Optional automatic travel mode
+
+For simple stacked demos or quick prototypes, you can let the component calculate travel distances from the layer order:
+
+```html
+<section class="pc-parallax" data-auto-travel style="--pc-auto-travel-step: 8vh;">
+  <div class="pc-parallax__layer" style="--pc-z: 1;">...</div>
+  <div class="pc-parallax__layer" style="--pc-z: 2;">...</div>
+  <div class="pc-parallax__layer" style="--pc-z: 3;">...</div>
+</section>
+```
+
+When `sibling-index()` is supported, the component calculates:
+
+```css
+--pc-travel: calc(var(--pc-auto-travel-step) * sibling-index());
+```
+
+This means the first layer gets `1 * --pc-auto-travel-step`, the second layer gets `2 * --pc-auto-travel-step`, and so on.
+
+Manual `--pc-travel` values remain the recommended default for production, because real scenes often need deliberate movement values rather than strictly increasing values based on source order.
+
 ## Recommended values
 
 These are only starting points.
@@ -214,10 +242,24 @@ The component includes a reduced-motion fallback:
 @media (prefers-reduced-motion: reduce) {
   .pc-parallax__layer {
     animation: none;
-    transform: translateY(0%);
+    transform: translateY(0);
   }
 }
 ```
+
+## Fallback behavior
+
+When scroll-driven animations or `animation-range` are not supported, layers remain stacked and visible without scroll-linked movement.
+
+The fallback transform is neutral:
+
+```css
+transform: translateY(0);
+```
+
+This keeps the layout calm and avoids partially shifted layers in browsers without full support.
+
+The component intentionally does not include a JavaScript fallback. If the parallax effect is decorative, progressive enhancement is usually the simplest and most robust strategy.
 
 ## Styling
 
@@ -253,9 +295,15 @@ The component registers the functional custom properties:
 }
 
 @property --pc-travel {
-  syntax: "<length-percentage>";
+  syntax: "<length>";
   inherits: false;
   initial-value: 20vh;
+}
+
+@property --pc-auto-travel-step {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 8vh;
 }
 
 @property --pc-z {
@@ -352,6 +400,8 @@ Before using this in production:
 - Keep `--pc-travel` moderate for text layers.
 - Avoid too many large image or video layers for performance.
 - Use project CSS for visual styling, not the component core.
+- Prefer manual `--pc-travel` values for carefully designed scenes.
+- Use `data-auto-travel` only for simple automatic staggering.
 
 ## License
 
